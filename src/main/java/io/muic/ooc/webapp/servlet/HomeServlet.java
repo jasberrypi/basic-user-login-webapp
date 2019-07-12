@@ -46,6 +46,18 @@ public class HomeServlet extends HttpServlet implements Routable {
             request.setAttribute("delUsername", delUsername);
             request.getRequestDispatcher("WEB-INF/delete.jsp").include(request, response);
         }
+        if (request.getParameter("editUser") != null) {
+            String username = (String) request.getSession().getAttribute("username");
+            String editUsername = request.getParameter("editUser");
+            request.setAttribute("editUsername", editUsername);
+            request.getRequestDispatcher("WEB-INF/editUser.jsp").include(request, response);
+        }
+        if (request.getParameter("editPass") != null) {
+            String username = (String) request.getSession().getAttribute("username");
+            String editUsername = request.getParameter("editPass");
+            request.setAttribute("editUsername", editUsername);
+            request.getRequestDispatcher("WEB-INF/editPass.jsp").include(request, response);
+        }
     }
 
     @Override
