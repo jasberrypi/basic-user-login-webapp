@@ -38,8 +38,13 @@ public class HomeServlet extends HttpServlet implements Routable {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("add") != null) { //9
+        if (request.getParameter("add") != null) {
             request.getRequestDispatcher("WEB-INF/add.jsp").include(request, response);
+        }
+        if (request.getParameter("delete") != null) {
+            String delUsername = request.getParameter("delete");
+            request.setAttribute("delUsername", delUsername);
+            request.getRequestDispatcher("WEB-INF/delete.jsp").include(request, response);
         }
     }
 

@@ -30,6 +30,11 @@
         <tr>
             <td><%=username%>
             <td><%=rs.getString("password") %>
+                    <%if(!username.equals(request.getSession().getAttribute("username"))){%>
+            <td>
+                <button type="submit" name="delete" value="<%=username%>">Delete</button>
+            </td>
+                <%}%>
         <tr>
                 <%
         }
