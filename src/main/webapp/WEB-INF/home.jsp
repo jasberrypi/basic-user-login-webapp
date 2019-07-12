@@ -29,8 +29,13 @@
         %>
         <tr>
             <td><%=username%>
+                    <%if(!username.equals(request.getSession().getAttribute("username"))){%>
+                <button type="submit" name="editUser" value="<%=username%>">Edit</button>
+                    <%}%>
             <td><%=rs.getString("password") %>
                     <%if(!username.equals(request.getSession().getAttribute("username"))){%>
+                <button type="submit" name="editPass" value="<%=username%>">Edit</button>
+                    <%}if(!username.equals(request.getSession().getAttribute("username"))){%>
             <td>
                 <button type="submit" name="delete" value="<%=username%>">Delete</button>
             </td>
