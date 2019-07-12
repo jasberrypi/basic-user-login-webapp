@@ -5,6 +5,9 @@
 <p>${error}</p>
 </body>
 <form method="post">
+    <input type="submit" name="add" value="Add New User">
+    <br>
+    <br>
     <table border="1">
         <tr>
             <td>Username</td>

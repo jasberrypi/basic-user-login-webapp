@@ -23,16 +23,6 @@ public class HomeServlet extends HttpServlet implements Routable {
     private SecurityService securityService;
 
     @Override
-    public String getMapping() {
-        return "/index.jsp";
-    }
-
-    @Override
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
-    }
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean authorized = securityService.isAuthorized(request);
         if (authorized) {
@@ -44,5 +34,22 @@ public class HomeServlet extends HttpServlet implements Routable {
         } else {
             response.sendRedirect("/login");
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("add") != null) { //9
+            request.getRequestDispatcher("WEB-INF/add.jsp").include(request, response);
+        }
+    }
+
+    @Override
+    public String getMapping() {
+        return "/index.jsp";
+    }
+
+    @Override
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
     }
 }
