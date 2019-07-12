@@ -1,23 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package io.muic.ooc.webapp.servlet;
+
 
 import io.muic.ooc.webapp.Routable;
 import io.muic.ooc.webapp.service.SecurityService;
-import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-/**
- *
- * @author gigadot
- */
+@Resource @WebServlet
 public class HomeServlet extends HttpServlet implements Routable {
 
     private SecurityService securityService;
@@ -29,8 +24,7 @@ public class HomeServlet extends HttpServlet implements Routable {
             // do MVC in here
             String username = (String) request.getSession().getAttribute("username");
             request.setAttribute("username", username);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/home.jsp");
-            rd.include(request, response);
+            request.getRequestDispatcher("WEB-INF/home.jsp").include(request, response);
         } else {
             response.sendRedirect("/login");
         }
@@ -38,13 +32,17 @@ public class HomeServlet extends HttpServlet implements Routable {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("logout") != null) {
+            securityService.logout(request);
+            response.sendRedirect("/login");
+        }
         if (request.getParameter("add") != null) {
             request.getRequestDispatcher("WEB-INF/add.jsp").include(request, response);
         }
         if (request.getParameter("delete") != null) {
             String delUsername = request.getParameter("delete");
-            request.setAttribute("delUsername", delUsername);
-            request.getRequestDispatcher("WEB-INF/delete.jsp").include(request, response);
+                request.setAttribute("delUsername", delUsername);
+                request.getRequestDispatcher("WEB-INF/delete.jsp").include(request, response);
         }
         if (request.getParameter("editUser") != null) {
             String username = (String) request.getSession().getAttribute("username");
