@@ -5,7 +5,7 @@
  */
 package io.muic.ooc.webapp.service;
 
-import org.apache.commons.lang.StringUtils;
+import io.muic.ooc.webapp.BCrypt;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class SecurityService {
     
     public boolean authenticate(String username, String password, HttpServletRequest request) {
         String passwordInDB = userCredentials.get(username);
-        boolean isMatched = StringUtils.equals(password, passwordInDB);
+        boolean isMatched = BCrypt.checkpw(password, passwordInDB);
         if (isMatched) {
             request.getSession().setAttribute("username", username);
             return true;

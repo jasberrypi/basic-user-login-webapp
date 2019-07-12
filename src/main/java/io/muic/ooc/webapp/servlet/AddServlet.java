@@ -1,5 +1,6 @@
 package io.muic.ooc.webapp.servlet;
 
+import io.muic.ooc.webapp.BCrypt;
 import io.muic.ooc.webapp.Routable;
 import io.muic.ooc.webapp.service.SecurityService;
 import org.apache.commons.lang.StringUtils;
@@ -30,8 +31,9 @@ public class AddServlet extends HttpServlet implements Routable {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String addUsername = request.getParameter("addUsername"); //13
+        String addUsername = request.getParameter("addUsername");
         String addPassword = request.getParameter("addPassword");
+        addPassword = BCrypt.hashpw(addPassword, BCrypt.gensalt());
         if (!StringUtils.isBlank(addUsername) && !StringUtils.isBlank(addPassword)) {
             if(!securityService.userCredentials.containsKey(addUsername)) {
                 try {
@@ -50,7 +52,7 @@ public class AddServlet extends HttpServlet implements Routable {
                     System.out.println(e);
                 }
                 securityService.userCredentials.put(addUsername, addPassword);
-                response.sendRedirect("/"); //14
+                response.sendRedirect("/");
             } else {
                 String error = "Username already exists.";
                 request.setAttribute("error", error);
@@ -69,7 +71,7 @@ public class AddServlet extends HttpServlet implements Routable {
     @Override
     public String getMapping() {
         return "/add";
-    } //12
+    }
 
     @Override
     public void setSecurityService(SecurityService securityService) {

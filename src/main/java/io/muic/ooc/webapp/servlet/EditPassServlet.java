@@ -1,5 +1,6 @@
 package io.muic.ooc.webapp.servlet;
 
+import io.muic.ooc.webapp.BCrypt;
 import io.muic.ooc.webapp.Routable;
 import io.muic.ooc.webapp.service.SecurityService;
 
@@ -30,6 +31,7 @@ public class EditPassServlet extends HttpServlet implements Routable {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newPassword = request.getParameter("newPassword");
         String editUsername = request.getParameter("update");
+        newPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
                 try {
                     String url = "jdbc:mysql://localhost:3306/jasmine_schema";
                     String db_username = "root";

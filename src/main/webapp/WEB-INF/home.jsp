@@ -1,9 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.sql.*" %>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Users</title>
-</head>
 <body>
 <h2>Welcome, ${username}</h2>
 <p>${error}</p>
