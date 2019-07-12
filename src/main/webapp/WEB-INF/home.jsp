@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.sql.*" %>
 <html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Users</title>
+</head>
 <body>
 <h2>Welcome, ${username}</h2>
 <p>${error}</p>
@@ -36,15 +40,15 @@
                 <button type="submit" name="editUser" value="<%=username%>">Edit</button>
                     <%}%>
             <td><%=rs.getString("password") %>
-                    <%if(!username.equals(request.getSession().getAttribute("username"))){%>
-                <button type="submit" name="editPass" value="<%=username%>">Edit</button>
-                    <%}if(!username.equals(request.getSession().getAttribute("username"))){%>
+                <%if(!username.equals(request.getSession().getAttribute("username"))){%>
+            <button type="submit" name="editPass" value="<%=username%>">Edit</button>
+                <%}if(!username.equals(request.getSession().getAttribute("username"))){%>
             <td>
                 <button type="submit" name="delete" value="<%=username%>">Delete</button>
             </td>
                 <%}%>
         <tr>
-                <%
+    <%
         }
         rs.close();
         stmt.close();

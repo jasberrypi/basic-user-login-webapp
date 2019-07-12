@@ -1,16 +1,16 @@
 package io.muic.ooc.webapp;
 
+import io.muic.ooc.webapp.service.SecurityService;
+import org.apache.catalina.Context;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.startup.Tomcat;
+
+import javax.servlet.ServletException;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.servlet.ServletException;
-
-import io.muic.ooc.webapp.service.SecurityService;
-import org.apache.catalina.Context;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.startup.Tomcat;
 
 public class Webapp {
 
@@ -30,6 +30,16 @@ public class Webapp {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(url,db_username,db_password);
             Statement stmt=con.createStatement();
+
+//            stmt.executeUpdate("DROP TABLE IF EXISTS users");
+//
+//            stmt.executeUpdate("CREATE TABLE users(username TEXT, password TEXT)");
+//
+//            String jaspass = BCrypt.hashpw("jaspass", BCrypt.gensalt());
+//            String soonpass = BCrypt.hashpw("soonpass", BCrypt.gensalt());
+//
+//            stmt.executeUpdate("INSERT INTO users VALUES('jasmine', '"+ jaspass +"')");
+//            stmt.executeUpdate("INSERT INTO users VALUES('soon', '"+ soonpass +"')");
 
             ResultSet rs = stmt.executeQuery("SELECT * FROM users");
 
@@ -59,6 +69,5 @@ public class Webapp {
         } catch (ServletException | LifecycleException ex) {
             ex.printStackTrace();
         }
-
     }
 }
