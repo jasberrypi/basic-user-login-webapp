@@ -1,7 +1,43 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.sql.*" %>
 <html>
 <body>
 <h2>Welcome, ${username}</h2>
+<p>${error}</p>
 </body>
+<form method="post">
+    <table border="1">
+        <tr>
+            <td>Username</td>
+            <td>Password</td>
+        </tr>
+        <%
+            try
+            {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                String url="jdbc:mysql://localhost:3306/jasmine_schema";
+                String db_username="root";
+                String db_password="rootpass";
+                String query="select * from users";
+                Connection con = DriverManager.getConnection(url,db_username,db_password);
+                Statement stmt=con.createStatement();
+                ResultSet rs=stmt.executeQuery(query);
+                while(rs.next()) {
+                    String username = rs.getString("username");
+        %>
+        <tr>
+            <td><%=username%>
+            <td><%=rs.getString("password") %>
+        <tr>
+                <%
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+
+    }catch(Exception e){
+        System.out.println(e);
+    }
+    %>
+    </table>
+</form>
 </html>

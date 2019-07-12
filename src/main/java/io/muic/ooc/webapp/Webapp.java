@@ -37,8 +37,6 @@ public class Webapp {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 securityService.userCredentials.put(username,password);
-                System.out.println(username);
-                System.out.println(password);
             }
 
             rs.close();
